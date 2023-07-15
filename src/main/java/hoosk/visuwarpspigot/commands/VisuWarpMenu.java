@@ -113,7 +113,10 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
      * @param player Player who triggered the event
      */
     public void openMenu(Player player) {
-        Inventory warpMenu = Bukkit.createInventory(player, 9 * 3, "Warp Menu");
+        int warpCount = warpManager.getWarps().size();
+        int inventorySize = Math.min(Math.max((int) Math.ceil(warpCount / 9.0) * 9, 9), 54);
+
+        Inventory warpMenu = Bukkit.createInventory(player, inventorySize, "Warp Menu");
 
         for (Warp warp : warpManager.getWarps().values()) {
             ItemStack warpItem = warp.getRepresentation().clone();
