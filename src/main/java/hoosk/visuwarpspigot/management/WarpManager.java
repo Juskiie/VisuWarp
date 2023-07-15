@@ -1,10 +1,10 @@
 package hoosk.visuwarpspigot.management;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import hoosk.visuwarpspigot.VisuWarpSpigot;
 import hoosk.visuwarpspigot.util.Warp;
@@ -17,7 +17,7 @@ import org.bukkit.event.Listener;
  * Manages adding, removing, and loading warps for VisuWarp.
  */
 public class WarpManager implements Listener {
-    private Map<String, Warp> warps;
+    private Map<String, Warp> warps = new HashMap<>();
     private final VisuWarpSpigot plugin;
 
     /**
@@ -26,9 +26,7 @@ public class WarpManager implements Listener {
      */
     public WarpManager(VisuWarpSpigot plugin) {
         this.plugin=plugin;
-        this.warps = new HashMap<>();
         loadWarps();
-        System.out.println(this);
         Bukkit.getPluginManager().registerEvents(this, this.plugin);
     }
 
@@ -59,7 +57,8 @@ public class WarpManager implements Listener {
      */
     public void saveWarps() {
         FileConfiguration config = plugin.getConfig();
-        config.set("warps", new ArrayList<>(warps.values()));
+        List<Map<String, Object>> serializedWarps = warps.values().stream().map(Warp::serialize).collect(Collectors.toList());
+        config.set("warps", serializedWarps);
         plugin.saveConfig();
     }
 

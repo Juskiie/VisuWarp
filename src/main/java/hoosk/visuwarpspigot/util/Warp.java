@@ -18,20 +18,6 @@ public class Warp implements ConfigurationSerializable {
     private ItemStack representation;
     private List<String> lore = new ArrayList<>();
 
-//    public Warp(Map<String, Object> map) {
-//        this.name = (String) map.get("name");
-//        this.location = (Location) map.get("location");
-//        this.representation = (ItemStack) map.get("representation");
-//        Object loreObject = map.get("lore");
-//        if (loreObject instanceof List) {
-//            this.lore = (List<String>) loreObject;
-//        } else if (loreObject instanceof String[]) {
-//            this.lore = Arrays.asList((String[]) loreObject);
-//        } else {
-//            this.lore = new ArrayList<>();
-//        }
-//    }
-
     public Warp(String name, Location location, ItemStack representation, List<String> lore) {
         this.name = name;
         this.location = location;
@@ -71,16 +57,7 @@ public class Warp implements ConfigurationSerializable {
         this.lore = lore;
     }
 
-//    @Override
-//    public Map<String, Object> serialize() {
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("name", name);
-//        map.put("location", location);
-//        map.put("representation", representation);
-//        map.put("lore", lore);
-//        return map;
-//    }
-
+    @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>();
         map.put("name", this.name);

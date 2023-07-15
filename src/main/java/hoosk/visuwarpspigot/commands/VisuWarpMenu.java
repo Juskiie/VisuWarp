@@ -115,7 +115,6 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
     public void onInventoryClick(InventoryClickEvent event) {
         if(!event.getView().getTitle().equals("Warp Menu")){
             Bukkit.getLogger().info("[VisuWarp:VisuWarpMenu.java:onInventoryClick] Wrong inventory");
-            event.setCancelled(true);
             return;
         }
 

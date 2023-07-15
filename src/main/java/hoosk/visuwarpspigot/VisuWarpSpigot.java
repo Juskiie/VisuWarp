@@ -3,8 +3,10 @@ package hoosk.visuwarpspigot;
 import hoosk.visuwarpspigot.commands.AddWarp;
 import hoosk.visuwarpspigot.commands.VisuWarpMenu;
 import hoosk.visuwarpspigot.management.WarpManager;
+import hoosk.visuwarpspigot.util.Warp;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,6 +19,7 @@ public final class VisuWarpSpigot extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
         Bukkit.getLogger().info("[VisuWarp] Starting up!");
+        ConfigurationSerialization.registerClass(Warp.class);
         Bukkit.getPluginManager().registerEvents(this, this);
         config.options().copyDefaults(true);
         saveConfig();
