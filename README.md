@@ -11,12 +11,12 @@ a compiled jar file in the directory: build/libs/VisuWarpSpigot-<version>.jar
 
 ## Permissions
 The plugin comes with the following permissions (you can set these using any appropriate permissions management plugin):
-visuwarp.*: Grants access to all plugin commands.
-visuwarp.open: Grants access to the warps menu "/vwmenu".
-visuwarp.list: Grants access to command: "/vwmenu list" which lists all warp names in chat.
-visuwarp.version: If granted, allows the user to use "/vwmenu version" which simply lists the plugin version.
-visuwarp.add: Grants the ability to add warps to the warp menu, using: /vwmenu add <warpname> <description>
-visuwarp.remove: Grants the ability to remove warps from the warp menu, using: /vwmenu remove <warpname>
+- visuwarp.*: Grants access to all plugin commands.
+- visuwarp.open: Grants access to the warps menu "/vwmenu".
+- visuwarp.list: Grants access to command: "/vwmenu list" which lists all warp names in chat.
+- visuwarp.version: If granted, allows the user to use "/vwmenu version" which simply lists the plugin version.
+- visuwarp.add: Grants the ability to add warps to the warp menu, using: /vwmenu add <warpname> <description>
+- visuwarp.remove: Grants the ability to remove warps from the warp menu, using: /vwmenu remove <warpname>
 
 ## Command usages
 - /vwmenu open - Open the warp menu
