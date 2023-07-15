@@ -46,16 +46,41 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
             sender.sendMessage("Only players can use this command!");
             return true;
         }
-
+        if(!player.hasPermission("visuwarp.open")){
+            player.sendMessage("Sorry, you don't have permission to open the VisuWarp global warps menu!");
+            return false;
+        }
         if (args.length == 0 || args[0].equalsIgnoreCase("open")) {
             openMenu(player);
             return true;
         }
         else if (args[0].equalsIgnoreCase("list")) {
+            if(!player.hasPermission("visuwarp.list")) {
+                player.sendMessage("Sorry, you don't have access to view the warps list");
+                return false;
+            }
             warpManager.getWarps().forEach((name, warp) -> player.sendMessage(name));
             return true;
         }
+        else if (args[0].equalsIgnoreCase("add")) {
+            if(!player.hasPermission("visuwarp.add")) {
+                player.sendMessage("Sorry, you don't have access to add warps");
+                return false;
+            }
+            if (args.length < 2) {
+                player.sendMessage("Invalid argument. Usage: " + command.getUsage());
+                return false;
+            }
+            String warpName = args[1];
+            String description = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
+            plugin.getServer().dispatchCommand(sender, "addwarp " + warpName + " " + description);
+            return true;
+        }
         else if (args[0].equalsIgnoreCase("remove")) {
+            if(!player.hasPermission("visuwarp.remove")) {
+                player.sendMessage("Sorry, you don't have access to remove warps");
+                return false;
+            }
             if (args.length < 2) {
                 player.sendMessage("You need to specify a warp name to remove.");
                 return true;
@@ -70,6 +95,10 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
             return true;
         }
         else if (args[0].equalsIgnoreCase("version")) {
+            if(!player.hasPermission("visuwarp.version")) {
+                player.sendMessage("Sorry, you don't have access view VisuWarp version");
+                return false;
+            }
             player.sendMessage("Plugin Version: " + plugin.getDescription().getVersion());
             return true;
         }
@@ -161,7 +190,7 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
             String partialCommand = args[0].toLowerCase();
 
             List<String> completions = new ArrayList<>();
-            List<String> commands = Arrays.asList("open", "list", "remove", "version");
+            List<String> commands = Arrays.asList("open", "list", "add", "remove", "version");
 
             // If partialCommand is empty, suggest all commands. Otherwise, only suggest commands that start with partialCommand.
             if (partialCommand.isEmpty()) {

@@ -19,6 +19,7 @@ commands:
     usage: |
       /<command> open - Open the warp menu
       /<command> list - List all warps
+      /<command> add <warpname> <description> - Adds a warp
       /<command> remove <warpname> - Remove a warp
       /<command> version - Display plugin version
     aliases: [vwmenu]

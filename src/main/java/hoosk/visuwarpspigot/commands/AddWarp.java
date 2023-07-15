@@ -33,6 +33,10 @@ public class AddWarp implements CommandExecutor, Listener {
             return true;
         }
 
+        if(!player.hasPermission("visuwarp.add")) {
+            sender.sendMessage("Sorry, you don't have permission to use this command. Contact an administrator if you believe this to be an error.");
+        }
+
         if (args.length < 2) {
             player.sendMessage("You need to specify a warp name and description.");
             return true;
