@@ -1,0 +1,15 @@
+name: VisuWarpSpigot
+version: '${version}'
+main: hoosk.visuwarpspigot.VisuWarpSpigot
+api-version: '1.20'
+commands:
+  addwarp:
+    description: Used to add warp to global warps menu
+    usage: /addwarp (warpname) {description}
+    permission: op
+    permission-message: Sorry, you don't have permission to use this command.
+  vwmenu:
+    description: Opens the warp menu
+    usage: /vwmenu
+    permission: op
+    permission-message: Sorry, you don't have permission to use this command.
