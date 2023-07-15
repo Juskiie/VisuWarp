@@ -20,9 +20,9 @@ public class AddWarp implements CommandExecutor, Listener {
     private final WarpManager warpManager;
     private final VisuWarpSpigot plugin;
 
-    public AddWarp(VisuWarpSpigot plugin) {
+    public AddWarp(VisuWarpSpigot plugin, WarpManager warpManager) {
         this.plugin = plugin;
-        this.warpManager = new WarpManager(plugin);
+        this.warpManager = warpManager;
     }
 
     @Override

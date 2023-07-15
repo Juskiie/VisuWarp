@@ -68,8 +68,10 @@ public class WarpManager implements Listener {
      * Loads all warps saved in config file to memory.
      */
     public void loadWarps() {
+        Bukkit.getLogger().info("[VisuWarp:WarpManager.java:loadWarps()] loading warps..");
         FileConfiguration config = plugin.getConfig();
         if (!config.contains("warps")) {
+            Bukkit.getLogger().warning("[VisuWarp:WarpManager.java:loadWarps()] Plugin config doesn't contain any warps! (yet?)");
             return;
         }
 
@@ -78,6 +80,9 @@ public class WarpManager implements Listener {
             Warp warp = new Warp((Map<String, Object>) serializedWarp); // Awful unchecked cast here. I'll fix later. TODO
             warps.put(warp.getName(), warp);
         }
+
+        Bukkit.getLogger().info("[VisuWarp:WarpManager.java:loadWarps()] Warps: " + warps.toString());
+        Bukkit.getLogger().info("[VisuWarp:WarpManager.java:loadWarps()] Loaded warps (size): " + warps.size());
     }
 
     public VisuWarpSpigot getPlugin() {

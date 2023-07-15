@@ -5,9 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Array;
+import java.util.*;
 
 /**
  * Holds information about warp for VisuWarp: name, location, item representation, lore.
@@ -16,7 +15,7 @@ public class Warp implements ConfigurationSerializable {
     private String name;
     private Location location;
     private ItemStack representation;
-    private List<String> lore;
+    private List<String> lore = new ArrayList<>();
 
     /**
      *
@@ -26,13 +25,13 @@ public class Warp implements ConfigurationSerializable {
         this.name = (String) map.get("name");
         this.location = (Location) map.get("location");
         this.representation = (ItemStack) map.get("representation");
-        try {
-            this.lore = (List<String>) map.get("lore");
-        } catch(Exception e) {
-            Bukkit.getLogger().warning("[VisuWarp] Error occurred while casting warp lore to List<TextComponent>");
-            Bukkit.getLogger().warning("[VisuWarp] Cause by:" + e.getCause());
-            Bukkit.getLogger().warning("[VisuWarp] Printing stack trace:");
-            e.printStackTrace();
+        Object loreObject = map.get("lore");
+        if (loreObject instanceof List) {
+            this.lore = (List<String>) loreObject;
+        } else if (loreObject instanceof String[]) {
+            this.lore = Arrays.asList((String[]) loreObject);
+        } else {
+            this.lore = new ArrayList<>();
         }
     }
 
@@ -76,5 +75,13 @@ public class Warp implements ConfigurationSerializable {
         map.put("representation", representation);
         map.put("lore", lore);
         return map;
+    }
+
+    @Override
+    public String toString() {
+        return ("Warp name: " + this.getName() + "\n"
+                + "Location: " + this.getLocation() + "\n"
+                + "Representation: " + this.getRepresentation() + "\n"
+                + "lore: " + this.getLore());
     }
 }

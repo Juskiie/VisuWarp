@@ -28,8 +28,9 @@ public final class VisuWarpSpigot extends JavaPlugin implements Listener {
 
         // Load commands
         try {
-            this.getCommand("addwarp").setExecutor(new AddWarp(this));
-            this.getCommand("vwmenu").setExecutor(new VisuWarpMenu(this));
+            this.getCommand("addwarp").setExecutor(new AddWarp(this, warpManager));
+            this.getCommand("vwmenu").setExecutor(new VisuWarpMenu(this, warpManager));
+            // this.getServer().getPluginManager().registerEvents(new VisuWarpMenu(this, warpManager), this);
         } catch (NullPointerException npe) {
             npe.printStackTrace();
         }

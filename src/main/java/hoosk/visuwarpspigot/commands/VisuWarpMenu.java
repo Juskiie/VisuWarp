@@ -17,15 +17,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class VisuWarpMenu implements CommandExecutor, Listener {
     private final WarpManager warpManager;
     private final VisuWarpSpigot plugin;
 
-    public VisuWarpMenu(VisuWarpSpigot plugin) {
+    public VisuWarpMenu(VisuWarpSpigot plugin, WarpManager warpManager) {
         this.plugin = plugin;
-        this.warpManager = new WarpManager(plugin);
+        this.warpManager = warpManager;
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     @Override
@@ -49,7 +51,12 @@ public class VisuWarpMenu implements CommandExecutor, Listener {
             warpItem.setItemMeta(warpItemMeta);
 
             warpMenu.addItem(warpItem);
+            Bukkit.getLogger().info("warpMenu.toString(): " + warpMenu.toString());
+            Bukkit.getLogger().info("warpItem.toString(): " + warpItem.toString());
+            Bukkit.getLogger().info("warp.toString(): " + warp.toString());
         }
+
+        Bukkit.getLogger().info(warpMenu.toString());
 
         player.openInventory(warpMenu);
 
@@ -59,6 +66,8 @@ public class VisuWarpMenu implements CommandExecutor, Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if(!event.getView().getTitle().equals("Warp Menu")){
+            Bukkit.getLogger().info("[VisuWarp:VisuWarpMenu.java:onInventoryClick] Wrong inventory");
+            event.setCancelled(true);
             return;
         }
 
@@ -68,8 +77,13 @@ public class VisuWarpMenu implements CommandExecutor, Listener {
 
         List<Warp> warps = new ArrayList<>(warpManager.getWarps().values());
 
+        for(Warp warp : warps) {
+            System.out.println(warp.toString());
+        }
+
         if(slot < 0 || slot >= warps.size()) {
-            // Invalid slot number, might happen when the player clicks outside of the inventory.
+            // Invalid slot number, might happen when the player clicks outside the inventory.
+            event.setCancelled(true);
             return;
         }
 
@@ -77,6 +91,7 @@ public class VisuWarpMenu implements CommandExecutor, Listener {
 
         if(clickedWarp != null && clickedWarp.getLocation() != null) {
             player.teleport(clickedWarp.getLocation());
+            event.setCancelled(true);
         }
         // Cancel the event so that the item isn't actually taken by the player.
         event.setCancelled(true);
