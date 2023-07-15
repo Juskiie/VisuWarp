@@ -3,6 +3,7 @@ package hoosk.visuwarpspigot.commands;
 import hoosk.visuwarpspigot.VisuWarpSpigot;
 import hoosk.visuwarpspigot.management.WarpManager;
 import hoosk.visuwarpspigot.util.Warp;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -54,15 +55,23 @@ public class AddWarp implements CommandExecutor, Listener {
 
         Location location = player.getLocation();
 
+        Bukkit.getLogger().info(Arrays.toString(args));
 
         Map<String, Object> warpMap = new HashMap<>();
 
         warpMap.put("name", name);
-        warpMap.put("location", location);
+        // warpMap.put("location", location);
+        warpMap.put("world", location.getWorld().getName());
+        warpMap.put("x", location.getX());
+        warpMap.put("y", location.getY());
+        warpMap.put("z", location.getZ());
+        warpMap.put("yaw", location.getYaw());
+        warpMap.put("pitch", location.getPitch());
         warpMap.put("representation", representation);
-        warpMap.put("lore", description.split("\\n"));
+        warpMap.put("lore", Arrays.asList(description.split("\\n")));
 
-        Warp warp = new Warp(warpMap);
+        // Warp warp = new Warp(warpMap);
+        Warp warp = Warp.deserialize(warpMap);
 
         warpManager.addWarp(warp);
 

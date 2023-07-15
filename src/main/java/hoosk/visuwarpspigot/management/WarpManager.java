@@ -49,7 +49,6 @@ public class WarpManager implements Listener {
      * Use to remove a warp from the global warps list
      * @param name The name of the warp to remove
      */
-    @Deprecated
     public void removeWarp(String name) {
         warps.remove(name);
         saveWarps();
@@ -77,7 +76,7 @@ public class WarpManager implements Listener {
 
         List<Map<?, ?>> serializedWarps = config.getMapList("warps");
         for (Map<?, ?> serializedWarp : serializedWarps) {
-            Warp warp = new Warp((Map<String, Object>) serializedWarp); // Awful unchecked cast here. I'll fix later. TODO
+            Warp warp = Warp.deserialize((Map<String, Object>) serializedWarp); // Awful unchecked cast here. I'll fix later. TODO
             warps.put(warp.getName(), warp);
         }
 
@@ -85,6 +84,7 @@ public class WarpManager implements Listener {
         Bukkit.getLogger().info("[VisuWarp:WarpManager.java:loadWarps()] Loaded warps (size): " + warps.size());
     }
 
+    @SuppressWarnings("unused")
     public VisuWarpSpigot getPlugin() {
         return this.plugin;
     }

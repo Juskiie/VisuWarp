@@ -8,12 +8,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Properties;
+import java.util.Objects;
 
 public final class VisuWarpSpigot extends JavaPlugin implements Listener {
     FileConfiguration config = getConfig();
-    final Properties properties = new Properties();
-    boolean firstTimeLaunch = false;
 
     @Override
     public void onEnable() {
@@ -28,9 +26,9 @@ public final class VisuWarpSpigot extends JavaPlugin implements Listener {
 
         // Load commands
         try {
-            this.getCommand("addwarp").setExecutor(new AddWarp(this, warpManager));
-            this.getCommand("vwmenu").setExecutor(new VisuWarpMenu(this, warpManager));
-            // this.getServer().getPluginManager().registerEvents(new VisuWarpMenu(this, warpManager), this);
+            Objects.requireNonNull(this.getCommand("addwarp")).setExecutor(new AddWarp(this, warpManager));
+            Objects.requireNonNull(this.getCommand("vwmenu")).setExecutor(new VisuWarpMenu(this, warpManager));
+            Objects.requireNonNull(this.getCommand("vwmenu")).setTabCompleter(new VisuWarpMenu(this, warpManager));
         } catch (NullPointerException npe) {
             npe.printStackTrace();
         }

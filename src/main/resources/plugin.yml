@@ -10,6 +10,11 @@ commands:
     permission-message: Sorry, you don't have permission to use this command.
   vwmenu:
     description: Opens the warp menu
-    usage: /vwmenu
+    usage: |
+      /<command> open - Open the warp menu
+      /<command> list - List all warps
+      /<command> remove <warpname> - Remove a warp
+      /<command> version - Display plugin version
+    aliases: [vwmenu]
     permission: op
     permission-message: Sorry, you don't have permission to use this command.

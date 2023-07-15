@@ -2,6 +2,7 @@ package hoosk.visuwarpspigot.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.ItemStack;
 
@@ -17,22 +18,25 @@ public class Warp implements ConfigurationSerializable {
     private ItemStack representation;
     private List<String> lore = new ArrayList<>();
 
-    /**
-     *
-     * @param map The config file map data for the warp.
-     */
-    public Warp(Map<String, Object> map) {
-        this.name = (String) map.get("name");
-        this.location = (Location) map.get("location");
-        this.representation = (ItemStack) map.get("representation");
-        Object loreObject = map.get("lore");
-        if (loreObject instanceof List) {
-            this.lore = (List<String>) loreObject;
-        } else if (loreObject instanceof String[]) {
-            this.lore = Arrays.asList((String[]) loreObject);
-        } else {
-            this.lore = new ArrayList<>();
-        }
+//    public Warp(Map<String, Object> map) {
+//        this.name = (String) map.get("name");
+//        this.location = (Location) map.get("location");
+//        this.representation = (ItemStack) map.get("representation");
+//        Object loreObject = map.get("lore");
+//        if (loreObject instanceof List) {
+//            this.lore = (List<String>) loreObject;
+//        } else if (loreObject instanceof String[]) {
+//            this.lore = Arrays.asList((String[]) loreObject);
+//        } else {
+//            this.lore = new ArrayList<>();
+//        }
+//    }
+
+    public Warp(String name, Location location, ItemStack representation, List<String> lore) {
+        this.name = name;
+        this.location = location;
+        this.representation = representation;
+        this.lore = lore;
     }
 
     public String getName() {
@@ -67,14 +71,44 @@ public class Warp implements ConfigurationSerializable {
         this.lore = lore;
     }
 
-    @Override
+//    @Override
+//    public Map<String, Object> serialize() {
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("name", name);
+//        map.put("location", location);
+//        map.put("representation", representation);
+//        map.put("lore", lore);
+//        return map;
+//    }
+
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<>();
-        map.put("name", name);
-        map.put("location", location);
-        map.put("representation", representation);
-        map.put("lore", lore);
+        map.put("name", this.name);
+        map.put("world", this.location.getWorld().getName());
+        map.put("x", this.location.getX());
+        map.put("y", this.location.getY());
+        map.put("z", this.location.getZ());
+        map.put("yaw", this.location.getYaw());
+        map.put("pitch", this.location.getPitch());
+        map.put("representation", this.representation);
+        map.put("lore", this.lore);
         return map;
+    }
+
+    public static Warp deserialize(Map<String, Object> map) {
+        World world = Bukkit.getWorld((String) map.get("world"));
+        if (world == null) {
+            throw new IllegalArgumentException("unknown world");
+        }
+        Location location = new Location(world,
+                (double) map.get("x"),
+                (double) map.get("y"),
+                (double) map.get("z"),
+                ((Number) map.get("yaw")).floatValue(),
+                ((Number) map.get("pitch")).floatValue());
+        ItemStack representation = (ItemStack) map.get("representation");
+        List<String> lore = (List<String>) map.get("lore");
+        return new Warp((String) map.get("name"), location, representation, lore);
     }
 
     @Override
