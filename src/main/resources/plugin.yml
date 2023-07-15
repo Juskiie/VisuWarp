@@ -42,10 +42,10 @@ permissions:
     default: true
   visuwarp.add:
     description: Permission to add warps to the global VisuWarp warps list
-    default: op
+    default: false
   visuwarp.remove:
     description: Permission to remove warps from the global VisuWarp warps list
-    default: op
+    default: false
   visuwarp.version:
     description: Permission to view the plugin version
     default: true
