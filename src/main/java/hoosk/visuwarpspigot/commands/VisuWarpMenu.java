@@ -46,6 +46,86 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
             sender.sendMessage("Only players can use this command!");
             return true;
         }
+
+        if (args.length == 0) {
+            if(!sender.hasPermission("visuwarp.open") && !sender.hasPermission("visuwarp.*")){
+                player.sendMessage("Sorry, you don't have permission to open the VisuWarp global warps menu!");
+                return false;
+            }
+            openMenu(player);
+            return true;
+        }
+
+        String subCommand = args[0].toLowerCase();
+
+        switch (subCommand) {
+            case "open" -> {
+                if (!sender.hasPermission("visuwarp.open") && !sender.hasPermission("visuwarp.*")) {
+                    player.sendMessage("Sorry, you don't have permission to open the VisuWarp global warps menu!");
+                    return false;
+                }
+                openMenu(player);
+            }
+            case "list" -> {
+                if (!sender.hasPermission("visuwarp.list")) {
+                    player.sendMessage("Sorry, you don't have access to view the warps list!");
+                    return false;
+                }
+                warpManager.getWarps().forEach((name, warp) -> player.sendMessage(name));
+            }
+            case "add" -> {
+                if (!sender.hasPermission("visuwarp.add") && !sender.hasPermission("visuwarp.*")) {
+                    player.sendMessage("Sorry, you don't have access to add warps!");
+                    return false;
+                }
+                if (args.length < 2) {
+                    player.sendMessage("Invalid argument. Usage: " + command.getUsage());
+                    return false;
+                }
+                String warpName = args[1];
+                String description = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
+                plugin.getServer().dispatchCommand(sender, "addwarp " + warpName + " " + description);
+            }
+            case "remove" -> {
+                if (!sender.hasPermission("visuwarp.remove") && !sender.hasPermission("visuwarp.*")) {
+                    player.sendMessage("Sorry, you don't have access to remove warps!");
+                    return false;
+                }
+                if (args.length < 2) {
+                    player.sendMessage("You need to specify a warp name to remove.");
+                    return true;
+                }
+                String name = args[1];
+                if (warpManager.getWarps().containsKey(name)) {
+                    warpManager.removeWarp(name);
+                    player.sendMessage("Warp " + name + " removed successfully!");
+                } else {
+                    player.sendMessage("No warp found with name: " + name);
+                }
+            }
+            case "version" -> {
+                if (!sender.hasPermission("visuwarp.version")  && !sender.hasPermission("visuwarp.*")) {
+                    player.sendMessage("Sorry, you don't have access view VisuWarp version!");
+                    return false;
+                }
+                player.sendMessage("Plugin Version: " + plugin.getDescription().getVersion());
+            }
+            default -> {
+                player.sendMessage("Invalid argument. Usage: " + command.getUsage());
+                return true;
+            }
+        }
+
+        return true;
+    }
+
+
+    @Deprecated
+    public boolean onCommandOld(CommandSender sender, Command command, String label, String[] args) {
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage("Only players can use this command!");
+            return true;
+        }
         if(!sender.hasPermission("visuwarp.open")){
             player.sendMessage("Sorry, you don't have permission to open the VisuWarp global warps menu!");
             return false;

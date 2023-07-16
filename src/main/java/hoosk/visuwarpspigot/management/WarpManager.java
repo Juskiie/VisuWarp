@@ -72,7 +72,7 @@ public class WarpManager implements Listener {
             Bukkit.getLogger().warning("[VisuWarp:WarpManager.java:loadWarps()] Plugin config doesn't contain any warps! (yet?)");
             return;
         }
-
+        Bukkit.getLogger().info("[VisuWarp] Warps entry found! Loading now...");
         List<Map<?, ?>> serializedWarps = config.getMapList("warps");
         for (Map<?, ?> serializedWarp : serializedWarps) {
             Warp warp = Warp.deserialize((Map<String, Object>) serializedWarp); // Awful unchecked cast here. I'll fix later. TODO

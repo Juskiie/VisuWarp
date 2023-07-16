@@ -20,11 +20,11 @@ public final class VisuWarpSpigot extends JavaPlugin implements Listener {
     public void onEnable() {
         // Plugin startup logic
         Bukkit.getLogger().info("[VisuWarp] Starting up!");
-        Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + " __     ___         __        __               ");
-        Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + " \\ \\   / (_)___ _   \\ \\      / /_ _ _ __ _ __  ");
-        Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "  \\ \\ / /| / __| | | \\ \\ /\\ / / _` | '__| '_ \\ ");
-        Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "   \\ V / | \\__ \\ |_| |\\ V  V / (_| | |  | |_) |");
-        Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.RED + "    \\_/  |_|___/\\__,_| \\_/\\_/ \\__,_|_|  | .__/ ");
+        Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.DARK_RED + " __     ___         __        __               ");
+        Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.YELLOW + " \\ \\   / (_)___ _   \\ \\      / /_ _ _ __ _ __  ");
+        Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "  \\ \\ / /| / __| | | \\ \\ /\\ / / _` | '__| '_ \\ ");
+        Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.AQUA + "   \\ V / | \\__ \\ |_| |\\ V  V / (_| | |  | |_) |");
+        Bukkit.getServer().getConsoleSender().sendMessage(ChatColor.LIGHT_PURPLE + "    \\_/  |_|___/\\__,_| \\_/\\_/ \\__,_|_|  | .__/ ");
         ConfigurationSerialization.registerClass(Warp.class);
         Bukkit.getPluginManager().registerEvents(this, this);
         config.options().copyDefaults(true);
