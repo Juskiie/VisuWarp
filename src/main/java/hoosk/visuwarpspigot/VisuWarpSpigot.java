@@ -13,9 +13,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
+/**
+ * The main plugin class, initialises commands and event handlers.
+ * @author Juskie (Casey)
+ * @version 1.0.2
+ * @since 1.0.0
+ */
 public final class VisuWarpSpigot extends JavaPlugin implements Listener {
     FileConfiguration config = getConfig();
 
+    /**
+     * Default plugin startup behaviour.
+     * Starts logging information and loading commands/handlers.
+     */
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -43,6 +53,9 @@ public final class VisuWarpSpigot extends JavaPlugin implements Listener {
         }
     }
 
+    /**
+     * Executed when plugin is stopped/disabled.
+     */
     @Override
     public void onDisable() {
         // Plugin shutdown logic

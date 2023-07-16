@@ -15,6 +15,9 @@ import org.bukkit.event.Listener;
 
 /**
  * Manages adding, removing, and loading warps for VisuWarp.
+ * @author Juskie (Casey)
+ * @version 1.0.2
+ * @since 1.0.0
  */
 public class WarpManager implements Listener {
     private Map<String, Warp> warps = new HashMap<>();
@@ -30,6 +33,10 @@ public class WarpManager implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this.plugin);
     }
 
+    /**
+     * Gets all warps stored in the warp manager
+     * @return A map object containing all warps
+     */
     public Map<String, Warp> getWarps() {
         return warps;
     }
@@ -83,6 +90,10 @@ public class WarpManager implements Listener {
         Bukkit.getLogger().info("[VisuWarp:WarpManager.java:loadWarps()] Loaded warps (size): " + warps.size());
     }
 
+    /**
+     * Gets the parent plugin class
+     * @return The parent plugin
+     */
     @SuppressWarnings("unused")
     public VisuWarpSpigot getPlugin() {
         return this.plugin;

@@ -17,15 +17,34 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Command which facilitates the addition of warps to the warp manager's global warps list.
+ * @author Juskie (Casey)
+ * @version 1.0.2
+ * @since 1.0.0
+ */
 public class AddWarp implements CommandExecutor, Listener {
     private final WarpManager warpManager;
     private final VisuWarpSpigot plugin;
 
+    /**
+     * Sole constructor. Instantiates this command.
+     * @param plugin The parent plugin
+     * @param warpManager The warp manager
+     */
     public AddWarp(VisuWarpSpigot plugin, WarpManager warpManager) {
         this.plugin = plugin;
         this.warpManager = warpManager;
     }
 
+    /**
+     *
+     * @param sender Source of the command
+     * @param command Command which was executed
+     * @param label Alias of the command which was used
+     * @param args Passed command arguments
+     * @return boolean true/false if command was successful
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
@@ -84,6 +103,10 @@ public class AddWarp implements CommandExecutor, Listener {
         return true;
     }
 
+    /**
+     * Gets the parent plugin.
+     * @return Parent plugin object.
+     */
     public VisuWarpSpigot getPlugin() {
         return plugin;
     }

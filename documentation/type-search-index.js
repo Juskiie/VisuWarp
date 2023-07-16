@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"hoosk.visuwarpspigot.commands","l":"AddWarp"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"hoosk.visuwarpspigot.commands","l":"VisuWarpMenu"},{"p":"hoosk.visuwarpspigot","l":"VisuWarpSpigot"},{"p":"hoosk.visuwarpspigot.util","l":"Warp"},{"p":"hoosk.visuwarpspigot.management","l":"WarpManager"}];updateSearchResults();

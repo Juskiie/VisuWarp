@@ -21,6 +21,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Main plugin command which facilitates all of its functions.
+ * @author Juskie (Casey)
+ * @version 1.0.2
+ * @since 1.0.0
+ */
 public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
     private final WarpManager warpManager;
     private final VisuWarpSpigot plugin;
@@ -120,8 +126,8 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
     }
 
     /**
-     *
-     * @param player Player who triggered the event
+     * Generates a new inventory for the player and populates it with warps from the warp manager
+     * @param player Player to open the warp menu for
      */
     public void openMenu(Player player) {
         int warpCount = warpManager.getWarps().size();
@@ -151,8 +157,8 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
     }
 
     /**
-     * Handles when the player clicks an item in the warp menu.
-     * @param event The item being clicked in the inventory
+     * Handles when the player clicks an item in the warp menu
+     * @param event The item being clicked in the warp menu inventory
      */
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
@@ -182,7 +188,7 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
     }
 
     /**
-     *
+     * Tab complete method to suggest command arguments in game.
      * @param sender Source of the command.  For players tab-completing a
      *     command inside of a command block, this will be the player, not
      *     the command block.

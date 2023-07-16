@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"hoosk.visuwarpspigot"},{"l":"hoosk.visuwarpspigot.commands"},{"l":"hoosk.visuwarpspigot.management"},{"l":"hoosk.visuwarpspigot.util"}];updateSearchResults();
