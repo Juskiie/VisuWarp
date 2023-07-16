@@ -46,7 +46,7 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
             sender.sendMessage("Only players can use this command!");
             return true;
         }
-        if(!player.hasPermission("visuwarp.open")){
+        if(!sender.hasPermission("visuwarp.open")){
             player.sendMessage("Sorry, you don't have permission to open the VisuWarp global warps menu!");
             return false;
         }
@@ -55,7 +55,7 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
             return true;
         }
         else if (args[0].equalsIgnoreCase("list")) {
-            if(!player.hasPermission("visuwarp.list")) {
+            if(!sender.hasPermission("visuwarp.list")) {
                 player.sendMessage("Sorry, you don't have access to view the warps list");
                 return false;
             }
@@ -63,7 +63,7 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
             return true;
         }
         else if (args[0].equalsIgnoreCase("add")) {
-            if(!player.hasPermission("visuwarp.add")) {
+            if(!sender.hasPermission("visuwarp.add")) {
                 player.sendMessage("Sorry, you don't have access to add warps");
                 return false;
             }
@@ -77,7 +77,7 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
             return true;
         }
         else if (args[0].equalsIgnoreCase("remove")) {
-            if(!player.hasPermission("visuwarp.remove")) {
+            if(!sender.hasPermission("visuwarp.remove")) {
                 player.sendMessage("Sorry, you don't have access to remove warps");
                 return false;
             }
@@ -152,12 +152,10 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
 
         Player player = (Player) event.getWhoClicked();
         int slot = event.getSlot();
-        // Bukkit.getLogger().info("[VisuWarp] Item slot clicked: " + slot + " (" + player + ")");
 
         List<Warp> warps = new ArrayList<>(warpManager.getWarps().values());
 
         if(slot < 0 || slot >= warps.size()) {
-            // Invalid slot number, might happen when the player clicks outside the inventory.
             event.setCancelled(true);
             return;
         }
