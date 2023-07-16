@@ -15,6 +15,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +36,7 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
         this.plugin = plugin;
         this.warpManager = warpManager;
         Bukkit.getPluginManager().registerEvents(this, plugin);
+        this.getClass();
     }
 
     /**
@@ -47,6 +49,7 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
      */
     @Override
     @SuppressWarnings("NullableProblems")
+    @Contract(pure = true)
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {
             sender.sendMessage("Only players can use this command!");
@@ -163,7 +166,6 @@ public class VisuWarpMenu implements CommandExecutor, Listener, TabCompleter {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if(!event.getView().getTitle().equals("Warp Menu")){
-            Bukkit.getLogger().info("[VisuWarp:VisuWarpMenu.java:onInventoryClick] Wrong inventory");
             return;
         }
 

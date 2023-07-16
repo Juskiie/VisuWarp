@@ -11,6 +11,7 @@ import hoosk.visuwarpspigot.util.Warp;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
+import org.jetbrains.annotations.Contract;
 
 
 /**
@@ -43,7 +44,7 @@ public class WarpManager implements Listener {
     }
 
     /**
-     * Directly modify the warps stored in the warp manager
+     * Directly modify the warps stored in the warp manager. This does NOT save to the config!
      * @param warps The warps to set
      */
     public synchronized void setWarps(Map<String, Warp> warps) {
@@ -71,7 +72,7 @@ public class WarpManager implements Listener {
     /**
      * Saves all warps currently in memory to config file property "warps"
      */
-    public void saveWarps() {
+    public synchronized void saveWarps() {
         FileConfiguration config = plugin.getConfig();
         List<Map<String, Object>> serializedWarps = warps.values().stream().map(Warp::serialize).collect(Collectors.toList());
         config.set("warps", serializedWarps);
@@ -81,7 +82,7 @@ public class WarpManager implements Listener {
     /**
      * Loads all warps saved in config file to memory.
      */
-    public void loadWarps() {
+    public synchronized void loadWarps() {
         Bukkit.getLogger().info("[VisuWarp:WarpManager.java:loadWarps()] loading warps..");
         FileConfiguration config = plugin.getConfig();
         if (!config.contains("warps")) {
@@ -91,7 +92,7 @@ public class WarpManager implements Listener {
         Bukkit.getLogger().info("[VisuWarp] Warps entry found! Loading now...");
         List<Map<?, ?>> serializedWarps = config.getMapList("warps");
         for (Map<?, ?> serializedWarp : serializedWarps) {
-            Warp warp = Warp.deserialize((Map<String, Object>) serializedWarp); // Awful unchecked cast here. I'll fix later. TODO
+            Warp warp = Warp.deserialize((Map<String, Object>) serializedWarp); // Awful unchecked cast here. I'll fix later.
             warps.put(warp.getName(), warp);
         }
 
@@ -105,6 +106,7 @@ public class WarpManager implements Listener {
      * There should only be one Warp Manager
      * @return The singleton instance of this class
      */
+    @SuppressWarnings("unused") // We do not care
     public static WarpManager getInstance() {
         if(instance==null){
             synchronized (WarpManager.class){
