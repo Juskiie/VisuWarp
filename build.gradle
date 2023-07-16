@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'hoosk'
-version = '1.0.0'
+version = '1.0.2'
 def minecraftVersion = '1.20.1'
 
 jar {
