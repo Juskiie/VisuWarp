@@ -21,6 +21,7 @@ import java.util.Objects;
  */
 public final class VisuWarpSpigot extends JavaPlugin implements Listener {
     FileConfiguration config = getConfig();
+    private static volatile VisuWarpSpigot instance;
 
     /**
      * Default plugin startup behaviour.
@@ -60,5 +61,18 @@ public final class VisuWarpSpigot extends JavaPlugin implements Listener {
     public void onDisable() {
         // Plugin shutdown logic
         Bukkit.getLogger().info("[VisuWarp] Shutting down..");
+    }
+
+    /**
+     * Checks if class has been instantiated, and if it has, returns the singleton instance.
+     * @return The singleton instance of this class
+     */
+    public static VisuWarpSpigot getInstance(){
+        if(instance==null){
+            synchronized (VisuWarpSpigot.class){
+                if(instance==null) instance = new VisuWarpSpigot();
+            }
+        }
+        return instance;
     }
 }

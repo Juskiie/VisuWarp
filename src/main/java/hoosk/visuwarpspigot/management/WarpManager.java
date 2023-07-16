@@ -22,6 +22,7 @@ import org.bukkit.event.Listener;
 public class WarpManager implements Listener {
     private Map<String, Warp> warps = new HashMap<>();
     private final VisuWarpSpigot plugin;
+    private static volatile WarpManager instance; // Any reference should be to the most recent warp manager stored in memory.
 
     /**
      * Initialise the warp manager for the plugin
@@ -37,8 +38,16 @@ public class WarpManager implements Listener {
      * Gets all warps stored in the warp manager
      * @return A map object containing all warps
      */
-    public Map<String, Warp> getWarps() {
+    public synchronized Map<String, Warp> getWarps() {
         return warps;
+    }
+
+    /**
+     * Directly modify the warps stored in the warp manager
+     * @param warps The warps to set
+     */
+    public synchronized void setWarps(Map<String, Warp> warps) {
+        this.warps = warps;
     }
 
     /**
@@ -88,6 +97,22 @@ public class WarpManager implements Listener {
 
         Bukkit.getLogger().info("[VisuWarp:WarpManager.java:loadWarps()] Warps: " + warps.toString());
         Bukkit.getLogger().info("[VisuWarp:WarpManager.java:loadWarps()] Loaded warps (size): " + warps.size());
+    }
+
+    /**
+     * Checks if class has been instantiated, and if it has, returns the singleton instance.
+     * <p>
+     * There should only be one Warp Manager
+     * @return The singleton instance of this class
+     */
+    public static WarpManager getInstance() {
+        if(instance==null){
+            synchronized (WarpManager.class){
+                if(instance==null)
+                    instance=new WarpManager(VisuWarpSpigot.getInstance());
+            }
+        }
+        return instance;
     }
 
     /**
